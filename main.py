@@ -1,5 +1,25 @@
 import os
 import json
+import re
+
+def search_by_name(query):
+    pattern = re.compile(r'^name:(\w+)$')
+    match = pattern.match(query)
+    if match:
+        author_name = match.group(1)
+        return [q for q in quotes if q.author.name == author_name]
+    else:
+        return []
+
+def search_by_tag(query):
+    pattern = re.compile(r'^tag:(\w+)$')
+    match = pattern.match(query)
+    if match:
+        tag = match.group(1)
+        return [q for q in quotes if tag in q.tags]
+    else:
+        return []
+
 
 class Author:
     def __init__(self, name, age):
